@@ -15,7 +15,6 @@ import { DateTime } from 'luxon';
 import ChartQRCode from './ChartQRCode';
 import PlanetaryPositions from './PlanetaryPositions';
 import HousePlacements from './HousePlacements';
-import OldAspectPatterns from './OldAspectPatterns';
 import AspectPatterns from './AspectPatterns';
 import Angles from './Angles';
 
@@ -155,8 +154,8 @@ const ChartPage: PageComponentType = () => {
           <div className="grid md:grid-cols-1 gap-4 mb-8">
             {/* Planetary Positions */}
             <Card className="bg-gradient-to-br from-purple-50 to-indigo-50 border-purple-200">
-              <CardHeader className="pb-2">
-                <CardTitle className="text-lg text-purple-800">Planetary Positions</CardTitle>
+              <CardHeader className="pb-1">
+                <CardTitle className="text-lg text-purple-800">Planets</CardTitle>
               </CardHeader>
               <CardContent>
                 {!celestialLoading && !celestialError && (!planetaryPositions || planetaryPositions.length === 0) && (
@@ -165,9 +164,23 @@ const ChartPage: PageComponentType = () => {
                 {celestialLoading && <p className="text-sm text-purple-700">Loading planetary positions...</p>}
                 {celestialError && <p className="text-sm text-red-600">Error loading positions.</p>}
                 {!celestialLoading && !celestialError && reading && reading.positions.length > 0 && (
-                  <PlanetaryPositions reading={reading} />
+                  <PlanetaryPositions reading={reading} type="planets" />
                 )}
               </CardContent>
+              <CardHeader className="pb-2">
+                <CardTitle className="text-lg text-purple-800">Asteroids</CardTitle>
+              </CardHeader>
+              <CardContent>
+                {!celestialLoading && !celestialError && (!planetaryPositions || planetaryPositions.length === 0) && (
+                  <p className="text-sm text-purple-700">Initializing asteroid positions...</p>
+                )}
+                {celestialLoading && <p className="text-sm text-purple-700">Loading asteroid positions...</p>}
+                {celestialError && <p className="text-sm text-red-600">Error loading positions.</p>}
+                {!celestialLoading && !celestialError && reading && reading.positions.length > 0 && (
+                  <PlanetaryPositions reading={reading} type="asteroids" />
+                )}
+              </CardContent>
+
             </Card>
 
             {/* House Placements */}

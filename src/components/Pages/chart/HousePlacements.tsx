@@ -2,6 +2,7 @@ import React from 'react';
 import { Reading } from '@/lib/types/astrology';
 import { convertToZodiac } from '@/lib/services/calculate/astrology';
 import { signEmojis } from '@/lib/data/constants';
+import { ordinal } from '@/lib/utils';
 
 
 const HousePlacements: React.FC<{ reading: Reading }> = ({ reading }) => {
@@ -12,10 +13,12 @@ const HousePlacements: React.FC<{ reading: Reading }> = ({ reading }) => {
                 const cusp = convertToZodiac(rawCusp);
                 return (
                 <li key={houseNum} className="flex items-center gap-2">
-                    <span className="text-lg font-bold">{houseNum}</span>
-                    <span>
-                    <span className="text-lg" title={cusp.sign}>{signEmojis[cusp.sign] || ''}</span> <span className="text-sm text-gray-500 ml-1 ">{cusp.sign}</span> {cusp.degree}° {cusp.minutes}' {cusp.seconds}
-                    </span>
+                    <a href={`https://masteringthezodiac.com/${cusp.sign.toLowerCase()}-in-${ordinal(houseNum)}-house`} target='_blank'>
+                        <span className="text-lg font-bold">{houseNum}</span>
+                        <span>
+                        <span className="text-lg" title={cusp.sign}>{signEmojis[cusp.sign] || ''}</span> <span className="text-sm text-gray-500 ml-1 ">{cusp.sign}</span> {cusp.degree}° {cusp.minutes}' {cusp.seconds}
+                        </span>
+                    </a>
                 </li>
                 )
             })}

@@ -216,3 +216,10 @@ export function estimateDeltaT(date: Date): number {
     return -20 + 32 * u * u;
   }
 }
+
+export const bodyTypes = {
+    planets: ["Sun", "Moon", "Mercury", "Venus", "Mars", "Jupiter", "Saturn", "Uranus", "Neptune", "Pluto"],
+    asteroids: ['Ceres', 'Pallas', 'Juno', 'Vesta'],
+    nodes: ['North Node', 'South Node'],
+    other: ['Chiron', 'Lilith'],
+};

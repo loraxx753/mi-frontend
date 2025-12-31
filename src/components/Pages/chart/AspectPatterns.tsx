@@ -2,7 +2,7 @@
     import { bodySymbols } from '@/lib/data/constants';
     import type { Aspect } from '@/lib/types/astrology';
     import { Card, CardContent, CardHeader, CardTitle } from '@/components/ThirdParty/ShadCn/Card';
-
+    import { bodyTypes as types } from '@/lib/utils';
 
     const AspectPatterns: React.FC<{aspects: Aspect[] }> = ({ aspects }) => {
         const byIndex = {
@@ -20,8 +20,8 @@
         }
         return (
             <div className="grid md:grid-cols-3 gap-4 mb-8">
-                {Object.entries(byIndex).map(([key, list]) => {
-                    if(list.length === 0) return null;
+                {Object.entries(byIndex).map(([key, list], idx) => {
+                    if(list.length === 0 || idx > 6) return null;
                     return (
                         <Card key={key} className="bg-gradient-to-br from-blue-50 to-cyan-50 border-blue-200">
                             <CardHeader className="pb-2">
@@ -30,6 +30,7 @@
                             <CardContent>
                                 <ul className="text-sm text-blue-700 space-y-1">
                                     {list.map((aspect, idx) => {
+                                        if(!types.planets.includes(aspect.planetA) || !types.planets.includes(aspect.planetB)) return null;
                                         const symbolA = bodySymbols[aspect.planetA] || '';
                                         const symbolB = bodySymbols[aspect.planetB] || '';
                                         const orb = aspect.orb;
@@ -37,11 +38,15 @@
 
                                         return (
                                         <li key={idx.toString() + '-item'} className="flex items-center gap-2" title={`orb: ${orbStr}`  }>
-                                            <strong >{aspect.planetA}</strong>
-                                            <span className="text-lg" title={aspect.planetA}>{symbolA}</span>
-                                            <span className="text-xs text-gray-500" title={aspect.aspect}>{aspect.glyph}</span>                                            
-                                            <span className="text-lg" title={aspect.planetB}>{symbolB}</span>
-                                            <strong >{aspect.planetB}</strong>
+                                            <a href={`https://masteringthezodiac.com/${aspect.planetA.toLowerCase()}-${aspect.aspect.toLowerCase()}-${aspect.planetB.toLowerCase()}`} target="_blank" rel="noopener noreferrer">
+                                                <strong >{aspect.planetA}</strong>
+                                                <span className="text-lg" title={aspect.planetA}>{symbolA}</span>
+                                                &nbsp;
+                                                <span className="text-xs text-gray-500" title={aspect.aspect}>{aspect.glyph}</span>                                            
+                                                <span className="text-lg" title={aspect.planetB}>{symbolB}</span>
+                                                &nbsp;
+                                                <strong >{aspect.planetB}</strong>
+                                            </a>
                                         </li>
                                         )
                                     })}

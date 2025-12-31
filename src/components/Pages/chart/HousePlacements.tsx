@@ -13,11 +13,12 @@ const HousePlacements: React.FC<{ reading: Reading }> = ({ reading }) => {
                 const cusp = convertToZodiac(rawCusp);
                 return (
                 <li key={houseNum} className="flex items-center gap-2">
-                    <a href={`https://masteringthezodiac.com/${cusp.sign.toLowerCase()}-in-${ordinal(houseNum)}-house`} target='_blank'>
+                    <a href={`https://masteringthezodiac.com/${ordinal(houseNum as unknown as number)}-house-in-astrology`} target='_blank'>
                         <span className="text-lg font-bold">{houseNum}</span>
-                        <span>
+                    </a>
+                    &nbsp;
+                    <a href={`https://masteringthezodiac.com/${cusp.sign.toLowerCase()}-in-${ordinal(houseNum as unknown as number)}-house`} target='_blank'>
                         <span className="text-lg" title={cusp.sign}>{signEmojis[cusp.sign] || ''}</span> <span className="text-sm text-gray-500 ml-1 ">{cusp.sign}</span> {cusp.degree}° {cusp.minutes}' {cusp.seconds}
-                        </span>
                     </a>
                 </li>
                 )

@@ -10,10 +10,10 @@ const LearnPage: PageComponentType = () => {
   const [submitted, setSubmitted] = useState(false);
 
   // Fetch planetary positions using the same hook as /reading
-  const bodies = [
-    'Sun', 'Moon', 'Mercury', 'Venus', 'Mars', 'Jupiter', 'Saturn'
-    // Add more as needed
-  ];
+  // const bodies = [
+  //   'Sun', 'Moon', 'Mercury', 'Venus', 'Mars', 'Jupiter', 'Saturn'
+  //   // Add more as needed
+  // ];
   const birthDate = methods.watch('birthDate');
   const birthTime = methods.watch('birthTime');
   const latitude = methods.watch('birthLocation.latitude');
@@ -27,7 +27,6 @@ const LearnPage: PageComponentType = () => {
           time: birthTime,
           latitude: latitude as number,
           longitude: longitude as number,
-          bodies,
         }
       : undefined
   );

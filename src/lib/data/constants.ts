@@ -66,3 +66,32 @@ export const PLANETARY_ELEMENTS: Record<string, PlanetaryElements> = {
   }
 };
 
+export const bodySymbols: Record<string, string> = {
+  Sun: '☉',
+  Moon: '☽',
+  Mercury: '☿',
+  Venus: '♀',
+  Mars: '♂',
+  Jupiter: '♃',
+  Saturn: '♄',
+  Uranus: '♅',
+  Neptune: '♆',
+  Pluto: '♇',
+  Ceres: '⚳',
+  Pallas: '⚴',
+  Juno: '⚵',
+  Vesta: '⚶',
+  Chiron: '⚷',
+  NorthNode: '☊', // True Node (ascending)
+  SouthNode: '☋', // Descending Node
+  PartOfFortune: '⊗', // Pars Fortunae
+  Ascendant: '↑', // No official, up arrow
+  Descendant: '↓', // No official, down arrow
+  Midheaven: '⟰', // No official, double up arrow
+  ImumCoeli: '⟱', // No official, double down arrow
+};
+
+export const signEmojis: Record<string, string> = {
+  Aries: '♈️', Taurus: '♉️', Gemini: '♊️', Cancer: '♋️', Leo: '♌️', Virgo: '♍️',
+  Libra: '♎️', Scorpio: '♏️', Sagittarius: '♐️', Capricorn: '♑️', Aquarius: '♒️', Pisces: '♓️',
+};

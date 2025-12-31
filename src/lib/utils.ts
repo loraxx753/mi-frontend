@@ -29,7 +29,11 @@ export function cn(...inputs: ClassValue[]) {
 const D2R = Math.PI / 180;
 const R2D = 180 / Math.PI;
 
-
+export function ordinal(n: number) {
+  const s = ["th", "st", "nd", "rd"],
+    v = n % 100;
+  return n + (s[(v - 20) % 10] || s[v] || s[0]);
+}
 
 /** Normalize angle to [0, 360) degrees */
 export function norm360(deg: number): number {

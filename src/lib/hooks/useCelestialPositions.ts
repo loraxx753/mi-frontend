@@ -1,7 +1,8 @@
 import { useQuery } from '@apollo/client';
-import { convertToZodiac } from '../services/calculate/astrology';
 import { formatOrb } from '../services/calculations';
 import { PLANETARY_POSITIONS_QUERY, HOUSES_QUERY } from '../queries/GET';
+import type { Reading, HouseCusps, Planet } from '../types/astrology';
+import { convertToZodiac } from '../services/calculate/astrology';
 
 const aspectGlyphs: Record<string, string> = {
   Conjunction: '☌',
@@ -11,7 +12,7 @@ const aspectGlyphs: Record<string, string> = {
   Sextile: '⚹',
   Quincunx: '⚻',
   Semisextile: '⚺',
-  Semisquare: '∠',
+  Octile: '∠',
   Sesquiquadrate: '⚼',
   Quintile: 'Q',
   Biquintile: 'BQ',
@@ -103,55 +104,18 @@ export interface ChartReadingInput {
   country?: string;
 }
 
-type ZodiacSign = {
-  degree: number;
-  minutes: number;
-  seconds: number;
-  sign: string;
-};
-
-type Planet = { 
-  name: string;
-  longitude: number;
-  latitude: number;
-  ra: number;
-  dec: number;
-  dateStr: string;
-  sign: ZodiacSign;
-  northNodeLongitude?: number;
-  southNodeLongitude?: number;
-};
-
-type HouseCusps = { [key: number]: ZodiacSign };
-
-type Reading = {
-  positions: Planet[];
-  aspects?: Array<{
-    planetA: string;
-    planetB: string;
-    aspect: string;
-    glyph: string;
-    index: number;
-    orb: {
-      degree: number;
-      minutes: number;
-      seconds: number;
-      float: number;
+function getHouseForPlanet(planetLon: number, houseCusps: number[]): number {
+  for (let i = 0; i < 12; i++) {
+    const cuspStart = houseCusps[i];
+    const cuspEnd = houseCusps[(i + 1) % 12];
+    if (cuspStart < cuspEnd) {
+      if (planetLon >= cuspStart && planetLon < cuspEnd) return i + 1;
+    } else { // wrap around 360°
+      if (planetLon >= cuspStart || planetLon < cuspEnd) return i + 1;
     }
-  }>;
-  angles?: {
-    ascendant: ZodiacSign;
-    midheaven: ZodiacSign;
-    descendant: ZodiacSign;
-    imumCoeli: ZodiacSign;
-  };
-  northNode?: ZodiacSign;
-  southNode?: ZodiacSign;
-  houses?: {
-    cusps: HouseCusps;
-    system: string;
-  };
-};
+  }
+  return -1; // Should not happen if data is valid
+}
 
 export default function (input?: ChartReadingInput) {
   const reading: Reading = {
@@ -171,15 +135,14 @@ export default function (input?: ChartReadingInput) {
   if (positions && !loading && !error && houseData && !houseLoading && !houseError) {
     // Calculate houses and angles (default to placidus, or allow system override via input if desired)
     reading.angles = {
-      ascendant: convertToZodiac(houseData.housePositions.ascendant),
-      midheaven: convertToZodiac(houseData.housePositions.mc),
-      descendant: convertToZodiac((houseData.housePositions.ascendant + 180) % 360),
-      imumCoeli: convertToZodiac((houseData.housePositions.mc + 180) % 360),
+      ascendant: houseData.housePositions.ascendant,
+      midheaven: houseData.housePositions.mc,
+      descendant: (houseData.housePositions.ascendant + 180) % 360,
+      imumCoeli: (houseData.housePositions.mc + 180) % 360,
     };
     reading.houses = {
       cusps: houseData?.housePositions.house
-        .map((value: number) => convertToZodiac(value))
-        .reduce((acc: HouseCusps, sign: ZodiacSign, index: number) => {
+        .reduce((acc: HouseCusps, sign: number, index: number) => {
           acc[index + 1] = sign;
           return acc;
         }, {}),
@@ -188,22 +151,24 @@ export default function (input?: ChartReadingInput) {
     reading.aspects = getAspects(positions.planetaryPositions);
 
     positions?.planetaryPositions.forEach((planet: Planet) => {
+      const sign = convertToZodiac(planet.longitude);
       const result: Planet = {
         name: planet.name,
         longitude: planet.longitude || 0,
         latitude: planet.latitude || 0,
-        ra: planet.sign?.minutes || 0,
-        dec: planet.sign?.seconds || 0,
+        ra: sign?.minutes || 0,
+        dec: sign?.seconds || 0,
         dateStr: new Date().toISOString(),
-        sign: convertToZodiac(planet.longitude),
+        sign: planet.longitude,
+        house: getHouseForPlanet(planet.longitude, reading.houses?.cusps as number[]),
       };
 
       if(planet.name == 'Moon') {
         if(planet.northNodeLongitude !== undefined) {
-          reading.northNode = convertToZodiac(planet.northNodeLongitude);
+          reading.northNode = planet.northNodeLongitude;
         }
         if(planet.southNodeLongitude !== undefined) {
-          reading.southNode = convertToZodiac(planet.southNodeLongitude);
+          reading.southNode = planet.southNodeLongitude;
         }
       }
       reading.positions.push(result);

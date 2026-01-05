@@ -18,9 +18,6 @@ import HousePlacements from './HousePlacements';
 import AspectPatterns from './AspectPatterns';
 import Angles from './Angles';
 
-import { Collapsible, CollapsibleTrigger, CollapsibleContent } from "@/components/ThirdParty/ShadCn/Collapsible";
-
-
 
 // import NatalChart, { type NatalChartData } from './NatalChart';
 

@@ -2,7 +2,7 @@ import { useMemo } from 'react';
 import { useLocation } from 'react-router-dom';
 
 import { ChartFormData, chartFormSchema } from '@/lib/schemas/chart';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ThirdParty/ShadCn/Card';
+import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ThirdParty/ShadCn/Card';
 import { StarIcon } from 'lucide-react';
 
 import { PageComponentType } from '@/lib/types';
@@ -12,11 +12,14 @@ import { useLatLongFromLocation } from '@/lib/hooks/useLatLongFromLocation';
 import { toDMS } from '@/lib/services/calculate/astrology';
 
 import { DateTime } from 'luxon';
-import ChartQRCode from './ChartQRCode';
+import QRCode from './ChartQRCode';
 import PlanetaryPositions from './PlanetaryPositions';
 import HousePlacements from './HousePlacements';
 import AspectPatterns from './AspectPatterns';
 import Angles from './Angles';
+
+import { Collapsible, CollapsibleTrigger, CollapsibleContent } from "@/components/ThirdParty/ShadCn/Collapsible";
+
 
 
 // import NatalChart, { type NatalChartData } from './NatalChart';
@@ -234,10 +237,51 @@ const ChartPage: PageComponentType = () => {
               </CardContent>
             </Card>
           </div>
-        {/* QR Code for sharing this chart */}
-        
-        <ChartQRCode url={window.location.origin + window.location.pathname + location.search} />
-        {/* {reading.houses && <NatalChart data={reading} size={500} />} */}
+          {/* QR Code for sharing this chart */}
+          <div className='block text-center mb-8'>
+            <h2 className="text-xl font-semibold text-gray-800 mb-4">Share this page</h2>
+            <QRCode url={window.location.origin + window.location.pathname + location.search} />
+          </div>
+          <div className='block text-center mb-8'>
+            <h2 className="text-xl font-semibold text-gray-800 mb-4">Support Shimmering Stars</h2>
+            <div className="flex flex-col sm:flex-row justify-center items-center gap-4">
+              <Card className="bg-gradient-to-br from-green-50 to-lime-50 border-green-200 shadow-md flex flex-col items-center p-6 w-64">
+                <CardHeader className="pb-0 w-full text-center">
+                  <CardTitle className="text-green-800 flex flex-col items-center p-0 m-0">
+                    <object className="inline mb-2" data="venmo-logo.svg" type="image/svg+xml">
+                      Venmo
+                    </object>
+                  </CardTitle>
+                </CardHeader>
+                <CardContent className="flex flex-col items-center">
+                  <QRCode url="venmo://paycharge?txn=pay&recipients=Simran-Gill-11&amount=10.00&note=Thanks%20for%20the%20Shimmering%20Stars%20Reading!" />
+                </CardContent>
+                <CardFooter>
+                  <a className='text-sm font-normal underline italic' href='https://venmo.com/code?user_id=1809702287572992420&created=1767644874' target='_blank'>
+                    Visit site
+                  </a>
+                </CardFooter>
+              </Card>
+              <Card className="bg-gradient-to-br from-blue-50 to-cyan-50 border-blue-200 shadow-md flex flex-col items-center p-6 w-64">
+                <CardHeader className="pb-0 w-full text-center">
+                  <CardTitle className="text-blue-800 flex flex-col items-center p-0 m-0">
+                      <object className="inline mb-2" data="paypal-logo.svg" type="image/svg+xml">
+                        PayPal
+                      </object>
+                  </CardTitle>
+                </CardHeader>
+                <CardContent className="flex flex-col items-center">
+                  <QRCode url="https://www.paypal.com/paypalme/loraxx753" />
+                </CardContent>
+                <CardFooter>
+                  <a className='text-sm font-normal underline italic' href='https://www.paypal.com/paypalme/loraxx753' target='_blank'>
+                    Visit site
+                  </a>
+                </CardFooter>
+
+              </Card>
+            </div>
+          </div>
         </div>
       </div>
     </div>

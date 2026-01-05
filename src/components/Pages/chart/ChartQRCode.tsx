@@ -5,12 +5,14 @@ interface ChartQRCodeProps {
   url: string;
 }
 
-const ChartQRCode: React.FC<ChartQRCodeProps> = ({ url }) => {
+const QRCode: React.FC<ChartQRCodeProps> = ({ url }) => {
   return (
-    <div className="flex flex-col items-center justify-center mt-8 mb-4">
-      <QRCodeSVG value={url} size={160} level="M" bgColor="transparent" />
+    <div className="flex flex-col items-center justify-center">
+      <a href={url} target="_blank" rel="noopener noreferrer">
+        <QRCodeSVG value={url} size={160} level="M" bgColor="transparent" />
+      </a>
     </div>
   );
 };
 
-export default ChartQRCode;
+export default QRCode;

@@ -264,7 +264,6 @@ const NatalChartForm: React.FC<NatalChartFormProps> = ({ onSubmit, isLoading = f
                 )}
               </Button>
             </div>
-            {methods.formState && <pre>{JSON.stringify(methods.formState, null, 2)}</pre>}
           </CardContent>
         </Card>
       </form>

@@ -33,7 +33,7 @@ export const Content = () => <>
     {/* Title */}
     <div className="mt-5 max-w-2xl text-center mx-auto">
       <h1 className="scroll-m-20 text-4xl font-bold tracking-tight lg:text-6xl bg-gradient-to-r from-purple-600 via-blue-500 to-indigo-500 bg-clip-text text-transparent leading-tight py-2">
-        Astrology App ✨
+        Shimmering Stars ✨
       </h1>
     </div>
     {/* End Title */}

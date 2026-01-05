@@ -2,7 +2,7 @@
     import { bodySymbols } from '@/lib/data/constants';
     import type { Aspect } from '@/lib/types/astrology';
     import { Card, CardContent, CardHeader, CardTitle } from '@/components/ThirdParty/ShadCn/Card';
-    import { bodyTypes as types } from '@/lib/utils';
+    import { bodyTypes as types, resolveAspectGrammar } from '@/lib/utils';
 
     const AspectPatterns: React.FC<{aspects: Aspect[] }> = ({ aspects }) => {
         const byIndex = {
@@ -38,11 +38,15 @@
 
                                         return (
                                         <li key={idx.toString() + '-item'} className="flex items-center gap-2" title={`orb: ${orbStr}`  }>
-                                            <a href={`https://masteringthezodiac.com/${aspect.planetA.toLowerCase()}-${aspect.aspect.toLowerCase()}-${aspect.planetB.toLowerCase()}`} target="_blank" rel="noopener noreferrer">
+                                            <a href={`https://masteringthezodiac.com/${aspect.planetA.toLowerCase()}-${resolveAspectGrammar(aspect.aspect.toLowerCase())}-${aspect.planetB.toLowerCase()}`} target="_blank" rel="noopener noreferrer">
                                                 <strong >{aspect.planetA}</strong>
+                                                &nbsp;
                                                 <span className="text-lg" title={aspect.planetA}>{symbolA}</span>
                                                 &nbsp;
+                                                &nbsp;
                                                 <span className="text-xs text-gray-500" title={aspect.aspect}>{aspect.glyph}</span>                                            
+                                                &nbsp;
+                                                &nbsp;
                                                 <span className="text-lg" title={aspect.planetB}>{symbolB}</span>
                                                 &nbsp;
                                                 <strong >{aspect.planetB}</strong>

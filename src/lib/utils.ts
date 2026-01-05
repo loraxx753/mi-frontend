@@ -223,3 +223,14 @@ export const bodyTypes = {
     nodes: ['North Node', 'South Node'],
     other: ['Chiron', 'Lilith'],
 };
+
+export function resolveAspectGrammar(aspect: string): string {
+    switch(aspect) {
+        case 'conjunction':
+            return 'conjunct';
+        case 'opposition':
+            return 'opposite';
+        default:
+            return aspect;
+    }
+}

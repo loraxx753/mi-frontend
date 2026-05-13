@@ -1,5 +1,0 @@
-export { SignsPage } from './component'
-export * from './aries'
-export * from './taurus'  
-export * from './gemini'
-export * from './leo'

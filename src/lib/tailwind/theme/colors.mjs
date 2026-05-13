@@ -4,6 +4,7 @@ export default  ({ colors }) => ({
     transparent: colors.transparent,
     black: colors.black,
     white: colors.white,
+    gray: colors.gray,
     zinc: colors.zinc,
     stone: colors.stone,
     red: colors.red,

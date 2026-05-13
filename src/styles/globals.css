@@ -9,112 +9,8 @@
 @import '@radix-ui/colors/blue-dark.css';
 @import '@radix-ui/colors/green-dark.css';
 @import '@radix-ui/colors/red-dark.css';
-/* KaTeX styles for mathematical notation */
-@import 'katex/dist/katex.min.css';
 
-
-/* Force light mode across the entire application */
-* {
-  color-scheme: light !important;
-}
-
-/* Override system dark mode preferences */
-:root {
-  color-scheme: light !important;
-}
-
-/* Force light mode on html and body */
-html {
-  color-scheme: light !important;
-}
-
-/* Ensure all form inputs use light mode styling */
-input, 
-textarea, 
-select, 
-button,
-[role="textbox"],
-[role="combobox"],
-[role="listbox"] {
-  color-scheme: light !important;
-  background-color: white !important;
-  color: black !important;
-  border-color: #d1d5db !important; /* Light gray border */
-}
-
-/* Override any dark mode input styles */
-input:not([type="checkbox"]):not([type="radio"]) {
-  background-color: white !important;
-  color: #000000 !important;
-  border: 1px solid #d1d5db !important;
-}
-
-/* Ensure form fields are readable */
-.form-input,
-.form-textarea,
-.form-select {
-  background-color: white !important;
-  color: black !important;
-  border-color: #d1d5db !important;
-}
-
-/* Override Radix UI dark mode if it gets applied */
-.radix-themes {
-  color-scheme: light !important;
-}
-
-/* Force light backgrounds on cards and containers */
-.bg-card,
-.bg-popover,
-.bg-muted {
-  background-color: white !important;
-  color: black !important;
-}
-
-/* Additional form element overrides for maximum compatibility */
-input[type="text"],
-input[type="email"], 
-input[type="password"],
-input[type="number"],
-input[type="tel"],
-input[type="url"],
-input[type="search"],
-input[type="date"],
-input[type="time"],
-input[type="datetime-local"] {
-  background-color: white !important;
-  color: #000000 !important;
-  border: 1px solid #d1d5db !important;
-  -webkit-appearance: none !important;
-  appearance: none !important;
-}
-
-/* Override any Tailwind dark mode classes */
-.dark\:bg-gray-800,
-.dark\:bg-gray-900,
-.dark\:text-white,
-.dark\:text-gray-100 {
-  background-color: white !important;
-  color: black !important;
-}
-
-/* Force light mode on dropdowns and selects */
-select option {
-  background-color: white !important;
-  color: black !important;
-}
-
-/* Ensure buttons remain readable */
-button {
-  color-scheme: light !important;
-}
-
-/* Override any system dark mode on webkit */
-@media (prefers-color-scheme: dark) {
-  * {
-    color-scheme: light !important;
-  }
-}
+@import './fonts.css';
 
 @tailwind base;
 @tailwind components;
@@ -147,50 +43,30 @@ button {
   --chart-4: 55 100% 60%; /* Strong yellow */
   --chart-5: 30 100% 55%; /* Bright orange */
 }
-/* Dark mode disabled - force light mode always */
-.dark,
-[data-theme="dark"],
-html[data-theme="dark"],
-body[data-theme="dark"] {
-  /* Override dark mode with light mode variables */
-  --background: 40 100% 95% !important; /* Light off-white */
-  --foreground: 0 0% 0% !important; /* Pure black */
-  --card: 60 20% 94% !important; /* Light grayish yellow */
-  --card-foreground: 0 0% 10% !important; /* Very dark gray/black */
-  --popover: 40 100% 95% !important; /* Light off-white */
-  --popover-foreground: 0 0% 0% !important; /* Pure black */
-  --primary: 220 90% 55% !important; /* Bright blue */
-  --primary-foreground: 0 0% 100% !important; /* Pure white */
-  --secondary: 0 80% 50% !important; /* Comic-book red */
-  --secondary-foreground: 0 0% 0% !important; /* Pure black */
-  --muted: 210 15% 85% !important; /* Light desaturated blue-gray */
-  --muted-foreground: 0 0% 10% !important; /* Very dark gray */
-  --accent: 55 100% 60% !important; /* Strong yellow */
-  --accent-foreground: 0 0% 10% !important; /* Dark gray */
-  --destructive: 0 100% 40% !important; /* Bold red */
-  --destructive-foreground: 0 0% 100% !important; /* Pure white */
-  --border: 0 0% 10% !important; /* Dark gray */
-  --input: 0 0% 18% !important; /* Medium gray */
-  --ring: 220 90% 55% !important; /* Bright blue */
-  
-  /* Force light mode styling */
-  background-color: white !important;
-  color: black !important;
-  color-scheme: light !important;
-}
-
-/* Dynamic page background system */
-:root {
-  --page-background: transparent;
-}
-
-/* Override Radix UI background to use our dynamic system */
-.radix-themes[data-has-background='true'] {
-  background: var(--page-background) !important;
-}
-
-/* Page background utility class */
-.dynamic-page-background {
-  background: var(--page-background) !important;
-  min-height: 100vh;
+.dark  {
+  --background: 220 20% 10%; /* Very dark blue-gray */
+  --foreground: 0 0% 90%; /* Light gray */
+  --card: 220 20% 15%; /* Dark blue-gray */
+  --card-foreground: 0 0% 90%; /* Very light gray */
+  --popover: 220 20% 10%; /* Very dark blue-gray */
+  --popover-foreground: 0 0% 90%; /* Light gray */
+  --primary: 220 80% 45%; /* Darker blue */
+  --primary-foreground: 0 0% 100%; /* Pure white */
+  --secondary: 0 70% 40%; /* Darker comic-book red */
+  --secondary-foreground: 0 0% 100%; /* Pure white */
+  --muted: 210 15% 15%; /* Dark desaturated blue-gray */
+  --muted-foreground: 0 0% 60%; /* Light gray */
+  --accent: 55 80% 50%; /* Muted yellow */
+  --accent-foreground: 0 0% 90%; /* Very light gray */
+  --destructive: 0 80% 35%; /* Dark red */
+  --destructive-foreground: 0 0% 100%; /* Pure white */
+  --border: 0 0% 18%; /* Dark gray */
+  --input: 0 0% 18%; /* Medium gray */
+  --ring: 220 80% 45%; /* Darker blue */
+  --radius: 0.5rem;
+  --chart-1: 0 100% 50%; /* Vivid red */
+  --chart-2: 220 90% 55%; /* Bright blue */
+  --chart-3: 120 60% 40%; /* Vivid green */
+  --chart-4: 55 100% 60%; /* Strong yellow */
+  --chart-5: 30 100% 55%; /* Bright orange */
 }

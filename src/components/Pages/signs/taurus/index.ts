@@ -1,1 +1,0 @@
-export { TaurusPage } from './component'

@@ -1,1 +1,0 @@
-export { GeminiPage } from './component'

@@ -1,0 +1,29 @@
+{
+  "name": "Shimmering Stars - Educational Platform",
+  "short_name": "Shimmering Stars",
+  "description": "Educational astrology platform with step-by-step astronomical calculations and birth chart analysis",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#1E1B4B",
+  "theme_color": "#8B5CF6",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/astrology-favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/apple-touch-icon.svg",
+      "sizes": "180x180",
+      "type": "image/svg+xml",
+      "purpose": "apple touch icon"
+    }
+  ],
+  "categories": ["education", "lifestyle", "utilities"],
+  "lang": "en",
+  "scope": "/",
+  "related_applications": [],
+  "prefer_related_applications": false
+}

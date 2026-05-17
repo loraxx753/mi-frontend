@@ -1,0 +1,1 @@
+export { LightAsAColorPage } from './component';
